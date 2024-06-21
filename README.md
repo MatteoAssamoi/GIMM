@@ -24,7 +24,7 @@ https://matteoassamoi.github.io/GIMM/
 ### Esercizio 2
 https://matteoassamoi.github.io/GIMM/Esercizio_2/casino.html
 
-###Esercizio 3A
+### Esercizio 3A
 https://matteoassamoi.github.io/GIMM/Esercizio_3A/orologio_analogico/index.html
 
 ### Esercizio 3B
