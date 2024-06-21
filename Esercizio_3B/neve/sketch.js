@@ -1,44 +1,50 @@
-let posizioneX, posizioneY
-let velX, velY
+let snowflakes = [];
 
 function setup() {
-	createCanvas(windowWidth, windowHeight)
-
-	posizioneX = width/2
-	posizioneY = height/2
-
-	velX = random(-10, 10)
-	velY = random(-10, 10)
-}
-
-function windowResized() {
-	resizeCanvas(windowWidth, windowHeight)
-}
-
-function keyPressed() {
-	if (key == 's') {
-		save('pattern.png')
-	}
+    createCanvas(windowWidth, windowHeight);
+    fill(255);
+    noStroke();
 }
 
 function draw() {
+    background('black');
 
-	posizioneX = posizioneX + velX
-	posizioneY = posizioneY + velY
+    // Create new snowflakes
+    let t = frameCount / 60;
+    for (let i = 0; i < random(2); i++) {
+        snowflakes.push(new snowflake());
+    }
 
-	if (posizioneX >= width || posizioneX < 0) {
-		velX = -velX
-	}
-
-	if (posizioneY >= height || posizioneY < 0) {
-		velY = -velY
-	}
-
-	// background(200)
-
-	fill(frameCount % 2 * 255)
-	noStroke()
-
-	rectMode(CENTER)
-	rect(posizioneX, posizioneY, (sin(frameCount*0.1) * 0.5 + 0.5) * 200 + 10)
+    // Display and update snowflakes
+    for (let flake of snowflakes) {
+        flake.update();
+        flake.display();
+    }
 }
+
+// Snowflake class
+function snowflake() {
+    this.posX = random(width);
+    this.posY = random(-50, 0);
+    this.size = random(2, 5);
+    this.speed = random(1, 4); // Accelerate the fall speed
+
+    this.update = function() {
+        this.posY += this.speed;
+
+        // Reset position if it goes off the screen
+        if (this.posY > height) {
+            this.posY = random(-50, 0);
+            this.posX = random(width);
+        }
+    };
+
+    this.display = function() {
+        ellipse(this.posX, this.posY, this.size);
+    };
+}
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+}
+
